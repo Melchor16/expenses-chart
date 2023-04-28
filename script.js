@@ -23,7 +23,9 @@ $sunday_number = d.getElementById('sunday-number');
 let highest_val = 0,
 percentage_val = 0,
 amount_percentage = 0,
-balance = 0;
+balance = 0,
+day_count = 0,
+this_day = new Date().getDay();
 
 //----------functions
 
@@ -50,6 +52,9 @@ function chartDayOff(input){    //hide number when leave mouse
 //----------hover logic
 
 for(let ins of $charts){
+    day_count += 1
+    day_count === this_day ? ins.classList.add('chart-today') : ins.classList.remove('chart-today');
+       
     ins.addEventListener('mouseover', e =>{
         chartDayOn(ins);
     })
