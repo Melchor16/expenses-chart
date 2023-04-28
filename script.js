@@ -1,3 +1,5 @@
+import data from './data.json' assert{type: 'json'};
+
 const d = document;
 //general dom elements
 const $charts = d.querySelectorAll('.chart-charts');
@@ -17,6 +19,11 @@ $thursday_number = d.getElementById('thursday-number'),
 $friday_number = d.getElementById('friday-number'),
 $saturday_number = d.getElementById('saturday-number'),
 $sunday_number = d.getElementById('sunday-number');
+//other variables
+let highest_val = 0,
+percentage_val = 0,
+amount_percentage = 0,
+balance = 0;
 
 //----------functions
 
@@ -51,3 +58,45 @@ for(let ins of $charts){
         chartDayOff(ins);
     })
 }
+
+//----------json data on the charts
+
+for(let val = 0; val<data.length; val++){
+    if(val === 0){  //gets the highest value to know where the highest chart is
+       highest_val = data[val].amount;
+    }else if(data[val].amount > highest_val){
+        highest_val = data[val].amount;
+        percentage_val = highest_val * 1.2;
+    }
+    balance += data[val].amount;    //I thought there was a way to dinamically change the balance and total this month but there's not enough data
+}
+
+for(let val of data){   //put the height % to the charts and the values to the text
+    amount_percentage = val.amount / percentage_val;
+    let percentage = `${Math.floor(amount_percentage * 100)}%`;
+    let rounded_amount = val.amount.toFixed(2);
+
+    if(val.day === 'mon'){
+        $monday_chart.style.height = percentage;
+        $monday_number.innerHTML = rounded_amount;
+    }else if(val.day === 'tue'){
+        $tuesday_chart.style.height = percentage;
+        $tuesday_number.innerHTML = rounded_amount;
+    }else if(val.day === 'wed'){
+        $wednesday_chart.style.height = percentage;
+        $wednesday_number.innerHTML = rounded_amount;
+    }else if(val.day === 'thu'){
+        $thursday_chart.style.height = percentage;
+        $thursday_number.innerHTML = rounded_amount;
+    }else if(val.day === 'fri'){
+        $friday_chart.style.height = percentage;
+        $friday_number.innerHTML = rounded_amount;
+    }else if(val.day === 'sat'){
+        $saturday_chart.style.height = percentage;
+        $saturday_number.innerHTML = rounded_amount;
+    }else if(val.day === 'sun'){
+        $sunday_chart.style.height = percentage;
+        $sunday_number.innerHTML = rounded_amount;
+    }
+}
+

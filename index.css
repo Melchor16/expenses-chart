@@ -114,6 +114,7 @@ main{
     padding-top: .5rem;
     margin: 0;
     height: 12%;
+    width: 3rem;
     margin-bottom: .5rem;
     background-color: var(--Dark-brown);
     color: var(--Very-pale-orange);
@@ -196,4 +197,18 @@ main{
 
 .hidden{
     display: none;
+}
+
+/* ----------MEDIA QUERIES---------- */
+
+@media(max-width: 550px){
+    html{
+        font-size: 12px;
+    }
+}
+
+@media(max-width: 415px){
+    html{
+        font-size: 10px;
+    }
 }
